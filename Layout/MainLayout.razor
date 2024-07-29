@@ -1,6 +1,12 @@
-﻿@inherits LayoutComponentBase
+﻿@using my_blazor_project.Component
+@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
 
 <div class="page">
+
+    <Loader @ref="loader" />
+    
     <nav class="navbar navbar-fixed-top navbar-custom navbar-transparent">
         <div class="container">
             <div class="navbar-header">
@@ -48,3 +54,24 @@
         <a href="#totop"><i class="fa fa-angle-up"></i></a>
     </div>
 </div>
+
+@code {
+    private Loader loader;
+
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += HandleLocationChanged;
+    }
+
+    private async void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        await loader.Show();
+        await Task.Delay(350); // 模擬加載時間
+        await loader.Hide();
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= HandleLocationChanged;
+    }
+}

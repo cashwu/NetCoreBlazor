@@ -1,0 +1,22 @@
+@inject IJSRuntime JSRuntime
+
+<div class="page-loader @(IsVisible ? "show" : "hide")">
+    <div class="loader">Loading...</div>
+</div>
+
+@code {
+    private bool IsVisible { get; set; } = false;
+
+    public async Task Show()
+    {
+        IsVisible = true;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public async Task Hide()
+    {
+        IsVisible = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+}

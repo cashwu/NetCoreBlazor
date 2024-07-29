@@ -2,10 +2,10 @@
      * Preloader
     /* ---------------------------------------------- */
 
-    $(window).on('load', function () {
-        console.log("on load loader ~~")
-        $('.page-loader').delay(700).fadeOut('slow');
-    });
+    // $(window).on('load', function () {
+    //     console.log("on load loader ~~")
+    //     $('.page-loader').delay(700).fadeOut('slow');
+    // });
 
     // $(document).ready(function() {
     //     setTimeout(function() {
