@@ -1,0 +1,89 @@
+@page "/portfolio"
+@inject HttpClient Http
+@inject IJSRuntime JsRuntime
+
+<PageTitle>象晴設計 ElephantShine - Portfolio</PageTitle>
+
+<section id="hero" class="module-hero module-parallax module-overlay-dark-1"
+         style="background-image: url('https://raw.githubusercontent.com/ElephantShine/images/main/webp/portfolioBanner.webp')">
+    <div class="hero-caption">
+        <div class="hero-text">
+            <h1 class="hero-title m-t-70">WORK 日常的綻放</h1>
+            <p class="lead m-t-40">過去的經驗加上一直存在的熱情，滿足客戶的需求，我們的未來是越來越迷人的風景！</p>
+        </div>
+    </div>
+</section>
+
+<section class="module module-w p-b-0">
+    <div class="container">
+        <!-- Filters -->
+        <div class="row">
+            <div class="col-sm-12">
+                <ul id="filters" class="filters">
+                    <li><a href="#" class="current" data-filter="*">全部</a></li>
+                    <li><span>⁄</span><a href="#" data-filter=".1">LOGO設計</a></li>
+                    <li><span>⁄</span><a href="#" data-filter=".2">形象設計</a></li>
+                    <li><span>⁄</span><a href="#" data-filter=".3">包裝設計</a></li>
+                    <li><span>⁄</span><a href="#" data-filter=".4">活動文宣</a></li>
+                    <li><span>⁄</span><a href="#" data-filter=".5">書籍型錄</a></li>
+                    <li><span>⁄</span><a href="#" data-filter=".6">教材編排</a></li>
+                    <li><span>⁄</span><a href="#" data-filter=".7">印刷輸出</a></li>
+                    <li><span>⁄</span><a href="#" data-filter=".8">婚卡喜帖</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Portfolio items -->
+        <div class="works-grid-wrapper">
+            <div id="works-grid" class="works-grid works-grid-gutter works-grid-3 works-grid-dark">
+                @if (portfolioItems != null)
+                {
+                    @foreach (var item in portfolioItems)
+                    {
+                        <article class="work-item @item.Category">
+                            <div class="work-wrapper">
+                                <div class="work-thumbnail">
+                                    <img src="@item.ImagePath" alt="@item.Title @item.SubTitle" />
+                                </div>
+                                <div class="work-caption">
+                                    <h3 class="work-title">@item.Title</h3>
+                                    <h6 class="work-category">@item.SubTitle</h6>
+                                </div>
+                                <a href="/portfolio/@item.Path" class="work-link"></a>
+                            </div>
+                        </article>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    private List<PortfolioItem> portfolioItems;
+    private bool isDataLoaded;
+
+    protected override async Task OnInitializedAsync()
+    {
+        portfolioItems = await Http.GetFromJsonAsync<List<PortfolioItem>>("portfolio.json");
+        isDataLoaded = true;
+    }
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (isDataLoaded)
+        {
+            await JsRuntime.InvokeVoidAsync("initializeCustomScriptsPortfolio");
+            isDataLoaded = false;
+        }
+    }
+
+    public class PortfolioItem
+    {
+        public string Category { get; set; }
+        public string ImagePath { get; set; }
+        public string Title { get; set; }
+        public string SubTitle { get; set; }
+        public string Path { get; set; }
+    }
+}

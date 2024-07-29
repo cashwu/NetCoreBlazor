@@ -1,17 +1,50 @@
 ﻿@inherits LayoutComponentBase
+
 <div class="page">
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-
-            <NavLink class="nav-link" href="portfolio/aa">Project AA</NavLink>
-
-            <NavLink class="nav-link" href="portfolio/bb">Project BB</NavLink>
+    <nav class="navbar navbar-fixed-top navbar-custom navbar-transparent">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#custom-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/" alt="象晴設計" title="象晴設計">象晴設計</a>
+            </div>
+            <div class="collapse navbar-collapse" id="custom-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><NavLink href="/" Match="NavLinkMatch.All">HOME</NavLink></li>
+                    <li><NavLink href="/portfolio">PORTFOLIO</NavLink></li>
+                    <li><NavLink href="/contact">CONTACT</NavLink></li>
+                </ul>
+            </div>
         </div>
-        
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+    </nav>
+
+    <div class="wrapper">
+        @Body
+    </div>
+
+    <footer class="footer module-overlay-dark-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="social-icons text-center m-b-40">
+                        <a data-name="fb" target="_blank" title="分享到 Facebook" class="fa fa-facebook facebook shareSocial"></a>
+                        <a data-name="tr" target="_blank" title="分享到 Tweet" class="fa fa-twitter twitter shareSocial"></a>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="copyright text-center">
+                        © 2023 象晴設計 ElephantShine, All Rights Reserved.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="scroll-up">
+        <a href="#totop"><i class="fa fa-angle-up"></i></a>
+    </div>
 </div>
