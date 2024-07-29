@@ -1,0 +1,50 @@
+@page "/portfolio/{id}"
+@inject NavigationManager Navigation
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private PortfolioItem portfolioItem;
+
+    protected override void OnParametersSet()
+    {
+        // 根據 Id 從資料源獲取資料，例如從 API 或本地資料庫
+        portfolioItem = GetPortfolioItemById(Id);
+
+        Console.WriteLine("portfolioItem = " + portfolioItem);
+    }
+
+    protected override void OnInitialized()
+    {
+    }
+
+    private PortfolioItem GetPortfolioItemById(string id)
+    {
+        Console.WriteLine("id : " + id);
+        // 這裡是模擬資料，你應該從實際的資料源獲取資料
+        var items = new List<PortfolioItem>
+        {
+            new PortfolioItem { Id = "aa", Title = "Project AA", Description = "Description for project AA" },
+            new PortfolioItem { Id = "bb", Title = "Project BB", Description = "Description for project BB" }
+        };
+
+        return items.FirstOrDefault(item => item.Id == id);
+    }
+}
+
+<h3>@portfolioItem?.Title</h3>
+<p>@portfolioItem?.Description</p>
+
+@code {
+    public class PortfolioItem
+    {
+        public string Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+
+        public override string ToString()
+        {
+            return $"{nameof(Id)}: {Id}, {nameof(Title)}: {Title}, {nameof(Description)}: {Description}";
+        }
+    }
+}
