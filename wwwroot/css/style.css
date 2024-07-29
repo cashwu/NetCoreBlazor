@@ -666,7 +666,7 @@ p.copyright {
 
 	.navbar-custom li a,
 	.navbar-custom .dropdown-menu > li:last-child > a {
-		border-bottom: 1px solid #2b2b2b;
+		/*border-bottom: 1px solid #2b2b2b;*/
 	}
 
 	.navbar-custom .navbar-nav > li:last-child > a {
